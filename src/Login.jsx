@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const Login = () => {
 	const [ authData, setAuthData ] = useState({ login: '', password: '' });
+	const [ authError, setAuthError ] = useState();
+
+	useEffect(() => {
+		localStorage.setItem('Admin', '12345');
+	});
+
 	const submit = () => {
-		console.log('ffff');
+		const userData = localStorage.getItem(authData.login);
+		if (userData !== authData.password) {
+			setAuthError('Имя пользователя или пароль введены не верно');
+		}
 	};
 	const onChangeHandle = (event) => {
 		setAuthData({ ...authData, [event.target.name]: event.target.value });
@@ -17,7 +26,6 @@ export const Login = () => {
 				<label className="sr-only">Email address</label>
 				<input
 					name="login"
-					type="email"
 					id="inputEmail"
 					className="form-control"
 					placeholder="Email address"
@@ -31,15 +39,11 @@ export const Login = () => {
 					id="inputPassword"
 					className="form-control"
 					placeholder="Password"
-					required
+					required={true}
 					onChange={onChangeHandle}
 				/>
-				<div className="checkbox mb-3">
-					<label>
-						<input type="checkbox" value="remember-me" /> Remember me
-					</label>
-				</div>
-				<button className="btn btn-lg btn-primary btn-block" type="submit" onClick={submit}>
+				{authError ? <div className="text-danger">{authError}</div> : <div />}
+				<button className="btn btn-lg btn-primary btn-block" type="button" onClick={submit}>
 					Sign in
 				</button>
 			</form>
