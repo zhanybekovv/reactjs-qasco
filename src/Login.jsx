@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import {useHistory} from 'react-router-dom'
 
 export const Login = () => {
 	const [ authData, setAuthData ] = useState({ login: '', password: '' });
 	const [ authError, setAuthError ] = useState();
+	const history = useHistory()
 
 	useEffect(() => {
-		localStorage.setItem('Admin', '12345');
+    localStorage.setItem('Admin', '12345');
 	});
 
 	const submit = () => {
 		const userData = localStorage.getItem(authData.login);
 		if (userData !== authData.password) {
 			setAuthError('Имя пользователя или пароль введены не верно');
-		}
+		}else{
+	  localStorage.setItem('authorized', true)
+	  history.push("/dashboard")
+    }
 	};
 	const onChangeHandle = (event) => {
 		setAuthData({ ...authData, [event.target.name]: event.target.value });
@@ -43,7 +48,7 @@ export const Login = () => {
 					onChange={onChangeHandle}
 				/>
 				{authError ? <div className="text-danger">{authError}</div> : <div />}
-				<button className="btn btn-lg btn-primary btn-block" type="button" onClick={submit}>
+				<button className="btn btn-lg btn-primary btn-block" type="submit" onClick={submit}>
 					Sign in
 				</button>
 			</form>
