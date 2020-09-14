@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Layout } from './Layout';
 import axios from 'axios';
 import {useHistory} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+// import actions
 
-export const Employee = () => {
+export const Employee = (props) => {
 	const [ data, setData ] = useState();
+	console.log("datas", props)
     const history = useHistory()
 	const getData = async () => {
 		try {
@@ -85,3 +89,16 @@ export const Employee = () => {
 		</Layout>
 	);
 };
+
+const mapStateToProps = (state) => {
+	console.log("state", state)
+	return {
+		datas: 454
+	};
+  };
+  
+  const mapDispatchToProps = {
+	
+  };
+
+  export default connect(mapStateToProps, mapDispatchToProps)(Employee);
