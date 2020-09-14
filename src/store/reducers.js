@@ -5,11 +5,9 @@ const initialState = {
 console.log("initial state", initialState)
 
 export const rootReducer = (state = initialState, action) =>{
-    console.log(action)
     switch (action.type) {
-        case "one":
-            console.log("dgdfgdfgfgfdgdg")
-            return {...state, users:["lol"]}
+        case "putData":
+            return {...state, users:action.payload}
         default:
             return {...state, users:["ggfg"]}
     }

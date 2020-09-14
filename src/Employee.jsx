@@ -2,42 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { Layout } from './Layout';
 import axios from 'axios';
 import {useHistory} from 'react-router-dom'
-import {connect} from 'react-redux'
+import {connect, useDispatch} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {action1} from './store/actions'
+import {loadData} from './store/actions'
 
 const Employee = (props) => {
-	const [ data, setData ] = useState();
-	console.log("datas", props.datas)
+	
     const history = useHistory()
-	const getData = async () => {
-		try {
-			const result = await axios.get('http://dummy.restapiexample.com/api/v1/employees');
-
-			setData(result.data.data);
-		} catch (e) {
-			console.log(e);
-		}
-	};
-
 	useEffect(() => {
-		getData();
-	}, []);
-	console.log(data);
+		props.action()
+	},[]);
+	
+	console.log("props", props.users.users);
 	return (
 		<Layout>
-			<div className="h1" onClick={()=>action1}>Employees</div>
-			{/* <div className="d-flex flex-wrap justify-content-between">
-				{data &&
-					data.map((user) => (
-						<UserCard
-							name={user.employee_name}
-							salary={user.employee_salary}
-							age={user.employee_age}
-							key={user.id}
-						/>
-					))}
-			</div> */}
+			<div className="h1" onClick={()=>props.action()}>Employees</div>
 			<table className="table">
 				<thead>
 					<tr>
@@ -49,8 +28,8 @@ const Employee = (props) => {
 					</tr>
 				</thead>
 				<tbody>
-					{data &&
-						data.map((user, index) => (
+					{props.users.users &&
+						props.users.users.map((user, index) => (
 							<tr key={index} onClick={()=>history.push(`/employee/${user.id}`)} style={{cursor: "pointer"}}>
 								<th scope="row">{user.id}</th>
 								<td>{user.employee_name}</td>
@@ -92,16 +71,14 @@ const Employee = (props) => {
 };
 
 const mapStateToProps = (state) => {
-	console.log("state", state)
 	return {
-		datas: 454
+		users: state
 	};
   };
   
 const mapDispatchToProps = (dispatch)=>{
-	console.log(action1)
 	return{
-		action1: bindActionCreators(action1, dispatch)
+		action: bindActionCreators(loadData, dispatch)
 	}
   };
 
