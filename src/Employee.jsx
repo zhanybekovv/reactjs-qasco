@@ -4,11 +4,11 @@ import axios from 'axios';
 import {useHistory} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-// import actions
+import {action1} from './store/actions'
 
-export const Employee = (props) => {
+const Employee = (props) => {
 	const [ data, setData ] = useState();
-	console.log("datas", props)
+	console.log("datas", props.datas)
     const history = useHistory()
 	const getData = async () => {
 		try {
@@ -26,7 +26,7 @@ export const Employee = (props) => {
 	console.log(data);
 	return (
 		<Layout>
-			<div className="h1">Employees</div>
+			<div className="h1" onClick={()=>action1}>Employees</div>
 			{/* <div className="d-flex flex-wrap justify-content-between">
 				{data &&
 					data.map((user) => (
@@ -76,6 +76,7 @@ export const Employee = (props) => {
 												data-toggle="tooltip"
 												data-placement="top"
 												title="Delete"
+												
 											>
 												<i className="fa fa-trash">Delete</i>
 											</button>
@@ -97,8 +98,11 @@ const mapStateToProps = (state) => {
 	};
   };
   
-  const mapDispatchToProps = {
-	
+const mapDispatchToProps = (dispatch)=>{
+	console.log(action1)
+	return{
+		action1: bindActionCreators(action1, dispatch)
+	}
   };
 
   export default connect(mapStateToProps, mapDispatchToProps)(Employee);

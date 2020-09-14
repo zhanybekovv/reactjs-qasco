@@ -1,11 +1,11 @@
-const action1 = (payload) => {
+export const action1 = (payload) => {
 	return {
-		type: 'one',
+		type: "one",
 		payload: payload
 	};
 };
 
-const action2 = (payload) => {
+export const action2 = (payload) => {
 	return {
 		type: 'two',
 		payload: payload

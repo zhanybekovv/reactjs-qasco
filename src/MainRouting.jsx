@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { Login } from './Login';
-import { Employee } from './Employee';
+import  Employee  from './Employee';
 import { Dashboard } from './Dashboard';
 import { ProtectedRoute } from './ProtectedRoute';
 import {Settings} from './Settings'
