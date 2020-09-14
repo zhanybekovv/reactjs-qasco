@@ -1,7 +1,7 @@
 import React from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
-import { Login } from './Login';
-import {MainRouting} from './MainRouting'
+import "../node_modules/bootstrap/dist/js/bootstrap";
+import {MainRouting} from './components/MainRouting'
 import {createStore, applyMiddleware} from 'redux'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'

@@ -1,10 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { loadData, createUser } from '../store/actions';
 
-export const Layout = (props) => {
+const Layout = (props) => {
   const exit = () =>{
     localStorage.removeItem("Admin")
     localStorage.removeItem("authorized")
   }
+  useEffect(() => {
+	props.action();
+}, []);
 	return (
 		<div>
 			<ul className="nav">
@@ -35,3 +41,18 @@ export const Layout = (props) => {
 		</div>
 	);
 };
+
+const mapStateToProps = (state) => {
+	return {
+		users: state
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		action: bindActionCreators(loadData, dispatch),
+		create: bindActionCreators(createUser, dispatch)
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);
